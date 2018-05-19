@@ -37,6 +37,21 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:text="Displays a pattern on the Gemini LEDs when receiving a call. The pattern is generated from the last five digits of the phone number, so should be relatively unique." />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="ALEDxander needs permission to read the phone's call state. Press the button below to authorize it." />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickAuthorize"
+            android:text="Authorize" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

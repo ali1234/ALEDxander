@@ -50,7 +50,6 @@ public class CallReceiver extends BroadcastReceiver {
         String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
         String stripped_number = number.replaceAll("[^\\d]", "");
         int num = parseInt(stripped_number);
-        Log.d("ALEDxander", "hello");
         if (stateStr.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             try {
                 for (int i = 0; i < 5; i++)
