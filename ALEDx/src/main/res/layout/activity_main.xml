@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="ALEDxander needs permission to read the phone's call state. Press the button below to authorize it." />
+            android:text="ALEDxander needs permission to read the phone's call state. No data will be logged or transmitted and it will never initiate any calls. Press the button below to authorize it." />
 
         <Button
             android:id="@+id/button"
