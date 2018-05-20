@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -43,13 +44,17 @@ public class CallReceiver extends BroadcastReceiver {
 
     }
 
+    public int numberToInt(@NonNull String number) {
+        String stripped_number = number.replaceAll("[^\\d]", "");
+        return stripped_number.isEmpty() ? 0 : parseInt(stripped_number);
+    }
+
     public void onReceive(Context context, Intent intent) {
 
         reflect(context);
         String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
         String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-        String stripped_number = number.replaceAll("[^\\d]", "");
-        int num = parseInt(stripped_number);
+        int num = numberToInt(number);
         if (stateStr.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             try {
                 for (int i = 0; i < 5; i++)
