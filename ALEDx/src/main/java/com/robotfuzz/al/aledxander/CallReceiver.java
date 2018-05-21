@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 public class CallReceiver extends BroadcastReceiver {
 
@@ -44,9 +45,15 @@ public class CallReceiver extends BroadcastReceiver {
 
     }
 
-    public int numberToInt(@NonNull String number) {
-        String stripped_number = number.replaceAll("[^\\d]", "");
-        return stripped_number.isEmpty() ? 0 : parseInt(stripped_number);
+    public long numberToLong(@NonNull String number) {
+        String digits = number.replaceAll("[^\\d]", "");
+        if (digits.isEmpty()) {
+            return 0;
+        } else if (digits.length() > 18) {
+            return parseLong(digits.substring(digits.length() - 18));
+        } else {
+            return parseLong(digits);
+        }
     }
 
     public void onReceive(Context context, Intent intent) {
@@ -54,11 +61,11 @@ public class CallReceiver extends BroadcastReceiver {
         reflect(context);
         String stateStr = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
         String number = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-        int num = numberToInt(number);
+        long num = numberToLong(number);
         if (stateStr.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             try {
                 for (int i = 0; i < 5; i++)
-                    openLed(5-i, (num>>((i*3)+0))&1, (num>>((i*3)+1))&1, (num>>((i*3)+2))&1, 0);
+                    openLed(5-i, (int)(num>>((i*3)+0))&1, (int)(num>>((i*3)+1))&1, (int)(num>>((i*3)+2))&1, 0);
             } catch (NoSuchMethodError e) {
                 Log.d("ALEDxander", "No HW leds");
             }
